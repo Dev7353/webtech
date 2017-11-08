@@ -7,11 +7,16 @@ import views.html._
 class Application extends  Controller{
 
   var c: Chess = _
+  var instance_counter = 0
 
   def startGame(): Result={
 
-    c = new Chess()
-    Results.ok(index.render(c.textUi.toHtml()))
+    if(instance_counter == 0){
+      c = new Chess()
+      instance_counter += 1
+    }
+
+    Results.ok(game.render(c.controller))
   }
 
   def home(): Result={

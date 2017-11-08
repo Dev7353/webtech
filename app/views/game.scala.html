@@ -1,5 +1,32 @@
-@(message: String, style: String = "java")
+@(c: controller.Controller)
 
-@defining(play.core.PlayVersion.current) { version =>
+@tile(i: Int, j: Int) = @{
+    if(i % 2 == 0){
+        if(j % 2 == 0){
+            "brownTile"
+        }else{
+           "whiteTile"
+        }
+    }else{
+        if(j % 2 == 0){
+            "whiteTile"
+        }else{
+            "brownTile"
+        }
+    }
+}
+
+@main("Chess"){
+    @{var ct = 0}
+
+    <div class="gamefield">
+        @for(i <- 0 until c.getGamefield.field.length){
+            @for(j <- 0 until c.getGamefield.field.length){
+
+                <div class="@{tile(i, j)}"></div>
+
+            }
+        }
+    </div>
 
 }
