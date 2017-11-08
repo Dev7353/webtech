@@ -15,6 +15,52 @@
         }
     }
 }
+@picture(i: Int, j: Int) = @{
+    if(c.getGamefield().isOccupied((i,j))){
+        if(c.playerB.hasFigure(c.getGamefield().get((i,j)))){
+            if(c.getGamefield().get((i,j)).toString().equals("B")){
+                        <img src="../assets/images/bauer_schwarz.png"/>
+            }
+            else if(c.getGamefield().get((i,j)).toString().equals("T")){
+                        <img src="../assets/images/turm_schwarz.png"/>
+            }
+            else if(c.getGamefield().get((i,j)).toString().equals("K")){
+                            <img src="../assets/images/koenig_schwarz.png"/>
+                }
+                else if(c.getGamefield().get((i,j)).toString().equals("D")){
+                                <img src="../assets/images/dame_schwarz.png"/>
+                    }
+                    else if(c.getGamefield().get((i,j)).toString().equals("O")){
+                                    <img src="../assets/images/offizier_schwarz.png"/>
+                        }
+                        else if(c.getGamefield().get((i,j)).toString().equals("L")){
+                                        <img src="../assets/images/laeufer_schwarz.png"/>
+                            }
+        }else if(c.playerA.hasFigure(c.getGamefield().get((i,j)))){
+            if(c.getGamefield().get((i,j)).toString().equals("B")){
+                        <img src="../assets/images/bauer.png"/>
+            }
+            else if(c.getGamefield().get((i,j)).toString().equals("T")){
+                        <img src="../assets/images/turm.png"/>
+            }
+            else if(c.getGamefield().get((i,j)).toString().equals("K")){
+                            <img src="../assets/images/koenig.png"/>
+                }
+            else if(c.getGamefield().get((i,j)).toString().equals("D")){
+                                <img src="../assets/images/dame.png"/>
+                    }
+            else if(c.getGamefield().get((i,j)).toString().equals("O")){
+                                    <img src="../assets/images/offizier.png"/>
+                        }
+            else if(c.getGamefield().get((i,j)).toString().equals("L")){
+                                        <img src="../assets/images/laeufer.png"/>
+                            }
+
+        }
+    }else{
+        ""
+    }
+}
 
 @main("Chess"){
     @{var ct = 0}
@@ -23,7 +69,10 @@
         @for(i <- 0 until c.getGamefield.field.length){
             @for(j <- 0 until c.getGamefield.field.length){
 
-                <div class="@{tile(i, j)}"></div>
+                @println(picture(i,j))
+                <div class="@{tile(i, j)}">
+                    @picture(i,j)
+                </div>
 
             }
         }
