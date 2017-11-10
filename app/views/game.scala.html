@@ -68,8 +68,6 @@
     <div class="gamefield">
         @for(i <- 0 until c.getGamefield.field.length){
             @for(j <- 0 until c.getGamefield.field.length){
-
-                @println(picture(i,j))
                 <div class="@{tile(i, j)}">
                     @picture(i,j)
                 </div>
