@@ -22,7 +22,7 @@ class Application extends  Controller{
     Results.ok(game.render(c.controller))
   }
   def startGame(): Result={
-    c.loop();
+    c.loop()
     Results.ok(game.render(c.controller))
   }
 
