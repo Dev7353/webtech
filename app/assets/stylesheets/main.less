@@ -4,7 +4,6 @@ body {
   font-family: 'Lora', serif;
   background-image: url("../images/background.jpeg");
   color: #FFF;
-  width: @containerWidth;
   margin: auto;
 }
 #title {
@@ -24,15 +23,11 @@ code {
 
 .brownTile{
   float:left;
-  width: 15rem;
-  height: 15rem;
   background-color: sandybrown;
   z-index: -1;
 }
 .whiteTile{
   float:left;
-  width: 15rem;
-  height: 15rem;
   background-color: beige;
   z-index: -1;
 }
@@ -42,5 +37,25 @@ img{
   height: 100%;
   z-index: 1;
   float: left;
-  float: left;
+}
+
+.navbar-toggler {
+  visibility: hidden;
+  display: none;
+  height: 0;
+}
+
+.tile {
+  width: 6vw;
+  width: 6vw;
+  height: 6vw;
+}
+
+@media (max-width: 480px) {
+  .navbar-toggler {
+    float: right;
+    visibility: initial;
+    display: block;
+    height: initial;
+  }
 }
