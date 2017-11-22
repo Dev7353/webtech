@@ -16,10 +16,10 @@ $( document ).ready(function() {
     $('.img-responsive').click(function(){
         count++;
         console.log("Count wurde inkrementiert!")
+        //Send data to Controller, receive possible moves
     });
     $('.tile').click(function(){
         if(count === 1){
-            //sendData
             console.log("Count ist 1!")
             //If coordinate is in received JSON, set Figure
             count = 0;
