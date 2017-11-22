@@ -13,7 +13,7 @@ function sendData(coordinate, player, count) {
 $( document ).ready(function() {
     console.log( "Document is ready" );
     $('.img-responsive').click(function(){
-        //sendData(coordinate, player, count);
+        console.log(this.parentElement);
     });
 });
 

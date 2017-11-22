@@ -72,15 +72,19 @@
                     <div class="col-md-12">
                         @for(j <- 0 until c.getGamefield().field.length){
 
-                            <div class="@{tile(i, j)} tile">
-                                @picture(i, j)
+                            <div class="@{tile(i, j)} tile" id="@i@j">
+                                    @picture(i, j)
                             </div>
-
+                            <script>
+                                $('#@i@j').prop("x-coordinate", @i);
+                                $('#@i@j').prop("y-coordinate", @j);
+                            </script>
                         }
                     </div>
                 </div>
             }
         </div>
     </div>
+
 
 }
