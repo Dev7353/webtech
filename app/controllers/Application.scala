@@ -29,4 +29,7 @@ class Application extends  Controller{
   def home(): Result={
     Results.ok(index.render(""))
   }
+  def getMoves(xCoordinate: Integer, yCoordinate: Integer, player: Player, count: Integer)= Result {
+    Results.ok(c.controller.getMovesToJson(xCoordinate, yCoordinate, player, count))
+  }
 }
