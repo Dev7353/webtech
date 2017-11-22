@@ -17,14 +17,15 @@ $( document ).ready(function() {
         count++;
         console.log("Count wurde inkrementiert!")
         //Send data to Controller, receive possible moves
+        console.log(count);
     });
     $('.tile').click(function(){
-        if(count === 1){
+        if (count === 1 && (this.children.length != 1)) {
             console.log("Count ist 1!")
             //If coordinate is in received JSON, set Figure
             count = 0;
             console.log("Count wurde dekrementiert!");
-        } else {
+        } else if(count === 0){
             console.log("Count ist 0!")
         }
     });
