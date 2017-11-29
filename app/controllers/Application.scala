@@ -6,6 +6,8 @@ import play.mvc._
 import views.html._
 import play.api.libs.json._
 import play.libs.F.Tuple
+
+import scala.collection.mutable.ListBuffer
 class Application extends  Controller{
 
   var c: Chess = _
@@ -32,9 +34,24 @@ class Application extends  Controller{
   }
 
   def getMoves(x: String, y: String):Result={
-    val moves = c.controller.getPossibleMoves(x.charAt(1).asDigit, y.charAt(1).asDigit)
+    var moves:ListBuffer[Tuple2[Int, Int]] = new ListBuffer[(Int, Int)]
+    var filteredMoves:ListBuffer[Tuple2[Int, Int]] = new ListBuffer[(Int, Int)]
+    if(c.controller.currentPlayer.hasFigure(c.gamefield.get((x.charAt(1).asDigit, y.charAt(1).asDigit))))
+      {
+        moves = c.controller.getPossibleMoves(x.charAt(1).asDigit, y.charAt(1).asDigit)
+        moves.foreach((t: Tuple2[Int, Int]) =>
+          if(t._1 >= 0 && t._1 < 8 && t._2 >= 0 && t._2 < 8 ){
+            if(!c.controller.currentPlayer.hasFigure(c.gamefield.get(t))){
+              filteredMoves += t
+
+            }
+          }
+        )
+      }
+
     val jsonMoves = Json.obj(
-      "moves" -> Json.toJson(moves.toList)
+      "moves" -> Json.toJson(filteredMoves.toList),
+      "currentPlayer" -> c.controller.currentPlayer.toString()
     )
     Results.ok(jsonMoves.toString())
   }

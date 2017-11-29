@@ -1,3 +1,4 @@
+
 let count = 0;
 
 $( document ).ready(function() {
@@ -6,24 +7,30 @@ $( document ).ready(function() {
 });
 
 function submitform() {
-    let name1 = document.getElementById('name1').value;
-    let name2 = document.getElementById('name2').value;
-    window.location.href = "/login/:" + name1 + ":" + name2;
+    let playerA = document.getElementById('name1').value;
+    let playerB = document.getElementById('name2').value;
+    window.location.href = "/login/:" + playerA + ":" + playerB;
 }
 
 function sendData(x, y) {
+
     $.ajax({
         method: "GET",
         url: "/getMoves/:"+x+"/:"+y,
         dataType: "json",
         success: function(result) {
+            $('.highlighted').removeClass('highlighted');
             for(let i = 0; i < result.moves.length; i++){
-                $('#' + result.moves[i][0] + result.moves[i][1]).addClass("highlighted")
+                let x = result.moves[i][0]
+                let y = result.moves[i][1]
+                $('#' + x + y).addClass("highlighted")
+
             }
             console.log("Success!")
         }
     })
 }
+
 
 function registerClickListener() {
     $('.img-responsive').click(function () {
