@@ -50,9 +50,14 @@ class Application extends  Controller{
       }
 
     val jsonMoves = Json.obj(
-      "moves" -> Json.toJson(filteredMoves.toList),
-      "currentPlayer" -> c.controller.currentPlayer.toString()
+      "moves" -> Json.toJson(filteredMoves.toList)
     )
     Results.ok(jsonMoves.toString())
+  }
+  def moveFigure(cpx: String, cpy: String, x: String, y:String): Result={
+    val currentPlayer = (cpx.charAt(1).asDigit, cpy.charAt(1).asDigit)
+    val target = (x.charAt(1).asDigit, y.charAt(1).asDigit)
+    c.controller.putFigureTo(currentPlayer, target)
+    Results.ok("Ok")
   }
 }

@@ -8,4 +8,5 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET     /game                       controllers.Application.startGame
 GET     /login/:player1:player2     controllers.Application.login(player1: String, player2: String)
 GET     /getMoves/:x/:y             controllers.Application.getMoves(x: String, y: String)
+GET     /moveFigure/:cpx/:cpy/:x/:y           controllers.Application.moveFigure(cpx: String, cpy: String, x: String, y: String)
 
