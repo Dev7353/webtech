@@ -4,7 +4,6 @@ import chess.Chess
 import model.Player
 import play.mvc._
 import views.html._
-
 class Application extends  Controller{
 
   var c: Chess = _
@@ -29,7 +28,9 @@ class Application extends  Controller{
   def home(): Result={
     Results.ok(index.render(""))
   }
-  //def getMoves(x: Int, y: Int)= Result {
-    //Results.ok(c.controller.getMovesToJson((x, y)))
-  //}
+
+  def getMoves(x: String, y: String):Result={
+
+    Results.ok("Hallo")
+  }
 }
