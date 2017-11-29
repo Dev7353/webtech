@@ -20,12 +20,15 @@ function getHighlight(x, y) {
         url: "/getMoves/:"+x+"/:"+y,
         dataType: "json",
         success: function(result) {
-            $('.highlighted').removeClass('highlighted');
-            for(let i = 0; i < result.moves.length; i++){
-                let x = result.moves[i][0]
-                let y = result.moves[i][1]
-                $('#' + x + y).addClass("highlighted")
-                console.log("Ajax call successful")
+            if(result.moves.length != 0) {
+                $('.highlighted').removeClass('highlighted');
+                for(let i = 0; i < result.moves.length; i++){
+                    let x = result.moves[i][0]
+                    let y = result.moves[i][1]
+                    $('#' + x + y).addClass("highlighted")
+                }
+            } else {
+                count = 0;
             }
         }
     })
