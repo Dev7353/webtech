@@ -14,9 +14,12 @@ function submitform() {
 function sendData(x, y) {
     $.ajax({
         method: "GET",
-        url: "/getMoves/:1/:2",
-        dataType: "text",
+        url: "/getMoves/:"+x+"/:"+y,
+        dataType: "json",
         success: function(result) {
+            for(let i = 0; i < result.moves.length; i++){
+                $('#' + result.moves[i][0] + result.moves[i][1]).addClass("highlighted")
+            }
             console.log("Success!")
         }
     })
@@ -27,7 +30,7 @@ function registerClickListener() {
         count++;
         console.log("Count wurde inkrementiert!")
         //Send data to Controller, receive possible moves
-        sendData(1, 2)
+        sendData(this["x-coordinate"], this["y-coordinate"] )
         console.log(count);
     });
     $('.tile').click(function () {

@@ -4,6 +4,8 @@ import chess.Chess
 import model.Player
 import play.mvc._
 import views.html._
+import play.api.libs.json._
+import play.libs.F.Tuple
 class Application extends  Controller{
 
   var c: Chess = _
@@ -30,7 +32,10 @@ class Application extends  Controller{
   }
 
   def getMoves(x: String, y: String):Result={
-
-    Results.ok("Hallo")
+    val moves = c.controller.getPossibleMoves(x.charAt(1).asDigit, y.charAt(1).asDigit)
+    val jsonMoves = Json.obj(
+      "moves" -> Json.toJson(moves.toList)
+    )
+    Results.ok(jsonMoves.toString())
   }
 }
