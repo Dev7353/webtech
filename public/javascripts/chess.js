@@ -10,7 +10,7 @@ $( document ).ready(function() {
 function submitform() {
     let playerA = document.getElementById('name1').value;
     let playerB = document.getElementById('name2').value;
-    window.location.href = "/login/:" + playerA + ":" + playerB;
+    window.location.href = "/login/:" + playerA + "/:" + playerB;
 }
 
 function getHighlight(x, y) {
