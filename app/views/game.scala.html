@@ -66,7 +66,23 @@
     @{var ct = 0}
 
     <div class="container-fluid">
-        <div class="gamefield">
+        <div style="width: 200px";>
+        @{
+            val playerA = c.currentPlayer
+            val playerB = c.enemyPlayer
+                <div class="panel panel-success">
+                <div class="panel-heading">
+                {playerA}
+                </div>
+                </div>
+                <div class="panel panel-default">
+                <div class="panel-heading">
+                {playerB}
+                </div>
+                </div>
+        }
+        </div>
+        <div class="gamefield" style="position: relative; bottom: 154px;">
             @for(i <- 0 until c.getGamefield().field.length){
                 <div class="row">
                     <div class="col-md-12">
@@ -85,16 +101,6 @@
                     </div>
                 </div>
             }
-            <div class="row">
-                <div class="col-sm-12">
-                    @{
-                        val playerA = c.playerA
-                        val playerB = c.playerB
-                            <h1 id="playerA">{playerA}</h1>
-                            <h1 id="playerB">{playerB}</h1>
-                    }
-                </div>
-            </div>
         </div>
     </div>
 

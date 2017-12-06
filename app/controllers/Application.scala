@@ -1,20 +1,29 @@
 package controllers
 
+import javax.inject.Inject
+
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+import akka.stream.Materializer
 import chess.Chess
 import model.Player
-import play.mvc._
+import observer.Observer
+import play.api.mvc._
 import views.html._
 import play.api.libs.json._
+import play.api.libs.streams.ActorFlow
 import play.libs.F.Tuple
 
 import scala.collection.mutable.ListBuffer
-class Application extends  Controller{
+import scala.swing.Reactor
+
+class Application @Inject()(cc: ControllerComponents) (implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc){
 
   var c: Chess = _
   var instance_counter = 0
+  var currentPlayer: Tuple2[Int, Int] = _
 
 
-  def login(player1: String, player2: String): Result ={
+  def login(player1: String, player2: String)= Action{
     if(instance_counter == 0){
       c = new Chess()
       instance_counter += 1
@@ -22,18 +31,18 @@ class Application extends  Controller{
 
     c.controller.setPlayerA(new Player(player1))
     c.controller.setPlayerB(new Player(player2))
-    Results.ok(game.render(c.controller))
+    Ok(game.render(c.controller))
   }
-  def startGame(): Result={
+  def startGame = Action{
     c.loop()
-    Results.ok(game.render(c.controller))
+    Ok(game.render(c.controller))
   }
 
-  def home(): Result={
-    Results.ok(index.render(""))
+  def home = Action{
+    Ok(index.render(""))
   }
 
-  def getMoves(x: String, y: String):Result={
+  def getMoves(x: String, y: String)= Action{
     var moves:ListBuffer[Tuple2[Int, Int]] = new ListBuffer[(Int, Int)]
     var filteredMoves:ListBuffer[Tuple2[Int, Int]] = new ListBuffer[(Int, Int)]
     if(c.controller.currentPlayer.hasFigure(c.gamefield.get((x.charAt(1).asDigit, y.charAt(1).asDigit))))
@@ -52,12 +61,41 @@ class Application extends  Controller{
     val jsonMoves = Json.obj(
       "moves" -> Json.toJson(filteredMoves.toList)
     )
-    Results.ok(jsonMoves.toString())
+    Ok(jsonMoves.toString())
   }
-  def moveFigure(cpx: String, cpy: String, x: String, y:String): Result={
-    val currentPlayer = (cpx.charAt(1).asDigit, cpy.charAt(1).asDigit)
+  def moveFigure(cpx: String, cpy: String, x: String, y:String) = Action{
+    currentPlayer = (cpx.charAt(1).asDigit, cpy.charAt(1).asDigit)
     val target = (x.charAt(1).asDigit, y.charAt(1).asDigit)
     c.controller.putFigureTo(currentPlayer, target)
-    Results.ok("Ok")
+    Ok("Ok")
+  }
+  def socket = WebSocket.accept[String, String] { request =>
+    ActorFlow.actorRef { out =>
+      println("Connect received")
+      ChessWebSocketActorFactory.create(out)
+    }
+  }
+
+  object ChessWebSocketActorFactory {
+    def create(out: ActorRef) = {
+      Props(new ChessWebSocketActor(out))
+    }
+  }
+
+  class ChessWebSocketActor(out: ActorRef) extends Actor with Observer{
+
+    c.controller.add(this)
+    def update = notifyClient
+
+    def receive = {
+      case msg: String =>
+        out ! c.controller.currentPlayer.toString()
+        println("[Application] Receive: "+ msg)
+    }
+
+    def notifyClient = {
+      println("[Application] Notify Client")
+      out ! "" + currentPlayer  + c.controller.target
+    }
   }
 }
