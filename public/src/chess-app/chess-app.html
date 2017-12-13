@@ -1,89 +1,85 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<dom module id="chess-app">
+<dom-module id="chess-app">
     <template>
         <style>
-            .gamefield{
+            .gamefield {
                 width: max-content;
                 height: 50%;
                 margin: auto;
                 margin-top: 2%;
             }
 
-            .brownTile{
-                float:left;
+            .brownTile {
+                float: left;
                 background-color: sandybrown;
                 z-index: -1;
             }
-            .whiteTile{
-                float:left;
+
+            .whiteTile {
+                float: left;
                 background-color: beige;
                 z-index: -1;
             }
 
-            img{
+            img {
                 width: 100%;
                 height: 100%;
                 z-index: 1;
                 float: left;
             }
+
             .tile {
                 height: 10rem;
                 width: 10rem;
                 overflow: hidden;
             }
+
             .highlighted {
                 background-color: yellow;
                 border: 1px solid black;
             }
         </style>
         <div class="container-fluid">
-            <div style="width: 200px";>
-                @{
-                val playerA = c.currentPlayer
-                val playerB = c.enemyPlayer
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        {playerA}
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        {playerB}
-                    </div>
-                </div>
-                }
+            <div style="width: 200px" ;>
+
+
             </div>
             <div class="gamefield">
-                <template repeat="{{i in [0, 1, 2, 3, 4, 5, 6, 7]}}">
+                <template is="dom-repeat" items="{{chessBoardX}}" as="x">
                     <div class="row">
                         <div class="col-md-12">
-                            <template repeat="{{j in [0, 1, 2, 3, 4, 5, 6, 7]}}">
-                                <template if="{i %2 == 0}">
-                                    <template if="{j %2 == 0}">
-                                        <div class="brownTile tile" id="@i@j">
+                            <template is="dom-repeat" items="{{chessBoardY}}" as="y">
+                                <template>
+                                    <div class$="{{_tile(x.x, y.y)}}"></div>
+                                </template>
+                                <!--<template is="dom-if" if="{{x.x % 2 == 0}}">
+                                    <template is="dom-if" if="{{y.y % 2 == 0}}">
+                                        <div class="brownTile tile" id="item.x item.y">
 
                                         </div>
                                     </template>
-                                    <template if="{j %2 != 0}">
-                                        <div class="whiteTile tile" id="@i@j">
+                                    <template is="dom-if" if="{{y.y % 2 != 0}}">
+                                        <div class="whiteTile tile" id="item.x item.y">
 
                                         </div>
                                     </template>
                                 </template>
-                                <template if="{i % 2 != 0}">
-                                    <template if="{j %2 == 0}">
-                                        <div class="whiteTile tile" id="@i@j">
+
+                                <template is="dom-if" if="{{x.x % 2 != 0}}">
+                                    <template is="dom-if" if="{{y.y %2 == 0}}">
+                                        <div class="whiteTile tile" id="item.x item.y">
 
                                         </div>
                                     </template>
-                                    <template if="{j %2 != 0}">
-                                        <div class="brownTile tile" id="@i@j">
+                                    <template is="dom-if" if="{{y.y % 2 != 0}}">
+                                        <div class="brownTile tile" id="item.x item.y">
 
                                         </div>
                                     </template>
-                                </template>
+                                </template>-->
                             </template>
                         </div>
                     </div>
@@ -91,15 +87,50 @@
             </div>
         </div>
     </template>
+
     <script>
         /*$('#@i@j').prop("x-coordinate", @i);
         $('#@i@j>img').prop("x-coordinate", @i)
         $('#@i@j').prop("y-coordinate", @j);
         $('#@i@j>img').prop("y-coordinate", @j)*/
+        var jsonDataX = []
+        var jsonDataY = []
+
+        function _tile(i, j) {
+            if (i % 2 == 0) {
+                if (j % 2 == 0) {
+                    return "brownTile"
+                } else {
+                    return "whiteTile"
+                }
+            } else {
+                if (j % 2 == 0) {
+                    return "whiteTile"
+                } else {
+                    return "brownTile"
+                }
+            }
+        }
 
         class ChessApp extends Polymer.Element {
-            static get is() { return 'chess-app'; }
+            static get is() {
+                return 'chess-app';
+            }
+
+            ready() {
+                super.ready();
+                this.chessBoardX = jsonDataX;
+                this.chessBoardY = jsonDataY;
+            }
         }
+
+
         window.customElements.define(ChessApp.is, ChessApp);
+        (function () {
+            for (let i = 0; i < 8; i++) {
+                jsonDataX.push({x: i})
+                jsonDataY.push({y: i})
+            }
+        }());
     </script>
-</dom>
+</dom-module>

@@ -11,10 +11,8 @@ import play.api.mvc._
 import views.html._
 import play.api.libs.json._
 import play.api.libs.streams.ActorFlow
-import play.libs.F.Tuple
 
 import scala.collection.mutable.ListBuffer
-import scala.swing.Reactor
 
 class Application @Inject()(cc: ControllerComponents) (implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc){
 
