@@ -69,6 +69,11 @@ class Application @Inject()(cc: ControllerComponents) (implicit system: ActorSys
     c.controller.putFigureTo(currentPlayer, target)
     Ok("Ok")
   }
+
+  def chessPolymer = Action {
+    Ok(polymerChess.render())
+  }
+
   def socket = WebSocket.accept[String, String] { request =>
     ActorFlow.actorRef { out =>
       println("Connect received")

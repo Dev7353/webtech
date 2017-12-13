@@ -1,0 +1,21 @@
+{
+  "name": "webtech",
+  "homepage": "https://github.com/Dev7353/webtech",
+  "authors": [
+    "taleminh <stefanleminh@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0"
+  }
+}
