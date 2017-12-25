@@ -31,6 +31,13 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
 
+        <!-- Polymer -->
+        <link rel="manifest" href="@routes.Assets.versioned("manifest.json")">
+
+        <script src="@routes.Assets.versioned("/bower_components/webcomponentsjs/webcomponents-loader.js")"></script>
+
+        <link rel="import" href="@routes.Assets.versioned("/src/wt_polymer-app/wt_polymer-app.html")">
+
 	<script src="@routes.Assets.versioned("javascripts/chess.js")" ></script>
         </head>
     <body>

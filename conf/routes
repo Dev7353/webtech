@@ -11,3 +11,5 @@ GET     /getMoves/:x/:y             controllers.Application.getMoves(x: String, 
 GET     /moveFigure/:cpx/:cpy/:x/:y           controllers.Application.moveFigure(cpx: String, cpy: String, x: String, y: String)
 GET     /socket                     controllers.Application.socket
 
+GET     /polymer                    controllers.Application.polymerPage
+

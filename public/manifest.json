@@ -1,0 +1,6 @@
+{
+  "name": "wt_polymer",
+  "short_name": "wt_polymer",
+  "start_url": "/",
+  "display": "standalone"
+}

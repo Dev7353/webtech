@@ -23,6 +23,10 @@ class Application @Inject()(cc: ControllerComponents) (implicit system: ActorSys
   var currentPlayer: Tuple2[Int, Int] = _
 
 
+  def polymerPage()= Action{
+    Ok(polymerGame.render())
+  }
+
   def login(player1: String, player2: String)= Action{
     if(instance_counter == 0){
       c = new Chess()
