@@ -1,0 +1,149 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+
+<dom-module id="wt_polymer-app">
+  <template>
+    <style>
+      .gamefield{
+        width: max-content;
+        height: 50%;
+        margin: auto;
+        margin-top: 2%;
+      }
+    img{
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      float: left;
+    }
+
+      .tile {
+        height: 10rem;
+        width: 10rem;
+        overflow: hidden;
+      }
+
+      .brownTile{
+        float:left;
+        background-color: sandybrown;
+        z-index: -1;
+      }
+      .whiteTile{
+        float:left;
+        background-color: beige;
+        z-index: -1;
+      }
+    </style>
+    <div class="container-fluid">
+      <div class="gamefield">
+        <template is="dom-repeat" items="{{rows}}" index-as="row">
+          <div class="row">
+            <div class="col-md-12">
+                <template is="dom-repeat" items="{{rows}}" index-as="col">
+                    <div class$="[[_getClass(row, col)]]" id=[[row]][[col]]>
+                            <img src$="[[_getImagePath(row, col)]]" class="img-responsive">
+                            <img src$="[[_getImagePath(row, col)]]" class="img-responsive">
+                    </div>
+                    [[_setId(row, col)]]
+                </template>
+            </div>
+          </div>
+          </template>
+      </div>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class Wt_polymerApp extends Polymer.Element {
+      static get is() { return 'wt_polymer-app'; }
+      static get properties() {
+        return {
+          rows: {
+            type: Array,
+            value() {
+                return [
+                    {value: '0'},
+                    {value: '1'},
+                    {value: '2'},
+                    {value: '3'},
+                    {value: '4'},
+                    {value: '5'},
+                    {value: '6'},
+                    {value: '7'}
+                ];
+            }
+          }
+        };
+      }
+        
+        _getClass(i, j){
+             if(i % 2 == 0){
+        if(j % 2 == 0){
+            return "brownTile tile"
+        }else{
+           return "whiteTile tile"
+            }
+        }else{
+            if(j % 2 == 0){
+                return "whiteTile tile"
+            }else{
+                return "brownTile tile"
+            }
+         }
+        }
+        
+        _getImagePath(i, j){
+            //return white figures
+            if(i === 0 && (j === 0 || j === 7))
+                return "assets/images/turm.png"
+            
+            if(i === 0 && (j === 1 || j === 6))
+                return "assets/images/laeufer.png"
+            
+            if(i === 0 && (j === 2 || j === 5))
+                return "assets/images/offizier.png"
+            
+            if(i === 0 && j === 3)
+                return "assets/images/dame.png"
+               
+            if(i === 0 && j === 4)
+                return "assets/images/koenig.png"
+            if(i === 1)
+                return "assets/images/bauer.png"
+            
+            //return black figures
+            if(i === 7 && (j === 0 || j === 7))
+                return "assets/images/turm_schwarz.png"
+            
+            if(i === 7 && (j === 1 || j === 6))
+                return "assets/images/laeufer_schwarz.png"
+            
+            if(i === 7 && (j === 2 || j === 5))
+                return "assets/images/offizier_schwarz.png"
+            
+            if(i === 7 && j === 3)
+                return "assets/images/dame_schwarz.png"
+               
+            if(i === 7 && j === 4)
+                return "assets/images/koenig_schwarz.png"
+            if(i === 6)
+                return "assets/images/bauer_schwarz.png"
+        }
+        
+        _setId(i, j){
+            $('#' + i + '' + j).prop("x-coordinate", i);
+            $('#' + i + '' + j + '>img').prop("x-coordinate", i)
+            $('#' + i + '' + j).prop("y-coordinate", j);
+            $('#' + i + '' + j + '>img').prop("y-coordinate", j)
+        }
+        
+    }
+    window.customElements.define(Wt_polymerApp.is, Wt_polymerApp);
+  </script>
+</dom-module>
