@@ -15,8 +15,8 @@ function updateUi(cpx, cpy, x,y){
 
 $( document ).ready(function() {
     console.log("Document is ready!")
-    registerClickListener()
     connectWebSocket()
+    registerClickListener()
 });
 
 function submitform() {

@@ -10,4 +10,3 @@ GET     /login/:player1/:player2     controllers.Application.login(player1: Stri
 GET     /getMoves/:x/:y             controllers.Application.getMoves(x: String, y: String)
 GET     /moveFigure/:cpx/:cpy/:x/:y           controllers.Application.moveFigure(cpx: String, cpy: String, x: String, y: String)
 GET     /socket                     controllers.Application.socket
-GET     /vue                        controllers.Application.vue

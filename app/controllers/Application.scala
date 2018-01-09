@@ -22,10 +22,6 @@ class Application @Inject()(cc: ControllerComponents) (implicit system: ActorSys
   var instance_counter = 0
   var currentPlayer: Tuple2[Int, Int] = _
 
-  def vue()=Action{
-    Ok(vuewebui.render())
-  }
-
   def login(player1: String, player2: String)= Action{
     if(instance_counter == 0){
       c = new Chess()
@@ -38,7 +34,7 @@ class Application @Inject()(cc: ControllerComponents) (implicit system: ActorSys
   }
   def startGame = Action{
     c.loop()
-    Ok(game.render(c.controller))
+    Ok(vuewebui.render())
   }
 
   def home = Action{
