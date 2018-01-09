@@ -85,7 +85,7 @@ email.sign.up.html.text = Please follow <a href="{0}">this link</a> to confirm a
 email.sign.up.txt.text = Please follow the link to confirm and activate your new account: {0}
 
 # Already Signed Up
-email.already.signed.up.subject = Welcome
+email.already.signed.up.subject = Welcome<
 email.already.signed.up.hello = Hello {0},
 email.already.signed.up.html.text = You already have an account registered. Please follow <a href="{0}">this link</a> to sign in into your account.
 email.already.signed.up.txt.text = You already have an account registered. Please follow the link to sign in into your account: {0}

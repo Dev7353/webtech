@@ -10,6 +10,21 @@ import play.api.mvc.{ AbstractController, AnyContent, ControllerComponents }
 import utils.auth.DefaultEnv
 
 import scala.concurrent.Future
+import akka.actor.{ Actor, ActorRef, ActorSystem, Props }
+import akka.stream.Materializer
+import chess.Chess
+import com.mohiva.play.silhouette.impl.User
+import model.Player
+import models.daos.UserDAOImpl
+import observer.Observer
+import play.api.mvc._
+import views.html._
+import play.api.libs.json._
+import play.api.libs.streams.ActorFlow
+import play.libs.F.Tuple
+
+import scala.collection.mutable.ListBuffer
+import scala.swing.Reactor
 
 /**
  * The basic application controller.
@@ -34,7 +49,11 @@ class ApplicationController @Inject() (
    * @return The result to display.
    */
   def index = silhouette.SecuredAction.async { implicit request: SecuredRequest[DefaultEnv, AnyContent] =>
-    Future.successful(Ok(views.html.home(request.identity)))
+    var users = new ListBuffer[String]()
+    for (entry <- UserDAOImpl.users.valuesIterator) {
+      users += entry.fullName.get
+    }
+    Future.successful(Ok(views.html.home(request.identity, users)))
   }
 
   /**

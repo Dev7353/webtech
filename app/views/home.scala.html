@@ -2,8 +2,9 @@
 @import play.api.mvc.RequestHeader
 @import org.webjars.play.WebJarsUtil
 @import controllers.AssetsFinder
+@import scala.collection.mutable.ListBuffer
 
-@(user: models.User)(implicit request: RequestHeader, messages: Messages, webJarsUtil: WebJarsUtil, assets: AssetsFinder)
+@(user: models.User, userList: ListBuffer[String])(implicit request: RequestHeader, messages: Messages, webJarsUtil: WebJarsUtil, assets: AssetsFinder)
 
 @main(messages("home.title"), Some(user)) {
     <div class="user col-md-6 col-md-offset-3">
@@ -30,6 +31,13 @@
                     <p class="col-md-6"><strong>@messages("email"):</strong></p><p class="col-md-6">@user.email.getOrElse("None")</p>
                 </div>
             </div>
+
+            <ol>
+                @for(u <- userList){
+                    <li>@u</li>
+                }
+            </ol>
         </div>
+
     </div>
 }
