@@ -159,7 +159,8 @@ class ApplicationController @Inject() (
   /**
    * Move Figure and get Moves
    */
-  def getMoves(x: String, y: String) = Action {
+
+  def getMoves(x: String, y: String) = silhouette.SecuredAction.async { implicit request: SecuredRequest[DefaultEnv, AnyContent] =>
     var moves: ListBuffer[Tuple2[Int, Int]] = new ListBuffer[(Int, Int)]
     var filteredMoves: ListBuffer[Tuple2[Int, Int]] = new ListBuffer[(Int, Int)]
     if (c.controller.currentPlayer.hasFigure(c.gamefield.get((x.charAt(1).asDigit, y.charAt(1).asDigit)))) {
@@ -177,12 +178,12 @@ class ApplicationController @Inject() (
     val jsonMoves = Json.obj(
       "moves" -> Json.toJson(filteredMoves.toList)
     )
-    Ok(jsonMoves.toString())
+    Future.successful(Ok(jsonMoves.toString()))
   }
-  def moveFigure(cpx: String, cpy: String, x: String, y: String) = Action {
+  def moveFigure(cpx: String, cpy: String, x: String, y: String) = silhouette.SecuredAction.async { implicit request: SecuredRequest[DefaultEnv, AnyContent] =>
     currentPlayer = (cpx.charAt(1).asDigit, cpy.charAt(1).asDigit)
     val target = (x.charAt(1).asDigit, y.charAt(1).asDigit)
     c.controller.putFigureTo(currentPlayer, target)
-    Ok("Ok")
+    Future.successful(Ok("Ok"))
   }
 }

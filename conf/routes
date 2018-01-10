@@ -32,6 +32,6 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET     /game                       controllers.ApplicationController.startGame
 GET     /getMoves/:x/:y             controllers.ApplicationController.getMoves(x: String, y: String)
 GET     /moveFigure/:cpx/:cpy/:x/:y controllers.ApplicationController.moveFigure(cpx: String, cpy: String, x: String, y: String)
-GET /SessionSocket controllers.ApplicationController.SessionSocket
-GET /socket controllers.ApplicationController.socket
+GET /SessionSocket                  controllers.ApplicationController.SessionSocket
+GET /socket                         controllers.ApplicationController.socket
 

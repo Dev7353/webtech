@@ -1,28 +1,26 @@
 let count = 0;
 var currentFigureX;
 var currentFigureY;
-var socket;
+var webSocket;
 
 function updateUi(cpx, cpy, x,y){
     $('.highlighted').removeClass('highlighted');
+    console.log("CPX: " + cpx + "CPY: " + cpy + "X: " + x + "Y: " + y)
     $('#' + x + y + ">img").remove()
     $('#' + cpx + cpy + ">img").appendTo($('#' + x + y))
     //$('#' + x + y + ">img").attr("id", x.toString() + y.toString())
     $('#' + x + y + ">img").prop("x-coordinate", x)
     $('#' + x + y + ">img").prop("y-coordinate", y)
+
+    // location.reload()
 }
 
 $( document ).ready(function() {
     console.log("Document is ready!")
     connectWebSocket()
     registerClickListener()
-});
 
-function submitform() {
-    let playerA = document.getElementById('name1').value;
-    let playerB = document.getElementById('name2').value;
-    window.location.href = "/login/:" + playerA + "/:" + playerB;
-}
+});
 
 function getHighlight(x, y) {
 
@@ -53,7 +51,7 @@ function moveFigure(cpx, cpy, x, y) {
             console.log("Moved the figure from " + cpx + cpy + " to " + x + y)
         }
     })
-    socket.send("heheh >:D")
+    webSocket.send("heheh >:D")
 }
 
 function registerClickListener() {
@@ -91,11 +89,11 @@ function registerClickListener() {
 }
 
 function connectWebSocket() {
-    socket = new WebSocket("ws://localhost:9000/socket");
-    socket.onopen = function(){
+    webSocket = new WebSocket("ws://localhost:9000/socket");
+    webSocket.onopen = function(){
         console.log("Connected to Websocket!");
     }
-    socket.onmessage = function(e){
+    webSocket.onmessage = function(e){
         if (typeof e.data === "string") {
             console.log(e.data)
             let cpx = parseInt(e.data.charAt(1))
@@ -105,10 +103,10 @@ function connectWebSocket() {
             updateUi(cpx, cpy, x, y)
         }
     }
-    socket.onerror = function(error){
+    webSocket.onerror = function(error){
         console.log("Error in Websocket occured: " + error)
     }
-    socket.onclose = function(){
+    webSocket.onclose = function(){
         console.log("Bye bye socket!")
     }
 }
