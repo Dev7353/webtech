@@ -1,0 +1,113 @@
+@import play.api.i18n.Messages
+@import play.api.mvc.RequestHeader
+@import org.webjars.play.WebJarsUtil
+@import controllers.AssetsFinder
+
+@(c: controller.Controller, user: models.User)(implicit request: RequestHeader, messages: Messages, webJarsUtil: WebJarsUtil, assets: AssetsFinder)
+
+@tile(i: Int, j: Int) = @{
+  if(i % 2 == 0){
+    if(j % 2 == 0){
+      "brownTile"
+    }else{
+      "whiteTile"
+    }
+  }else{
+    if(j % 2 == 0){
+      "whiteTile"
+    }else{
+      "brownTile"
+    }
+  }
+}
+@picture(i: Int, j: Int) = @{
+  if(c.getGamefield().isOccupied((i,j))){
+    if(c.playerB.hasFigure(c.getGamefield().get((i,j)))){
+      if(c.getGamefield().get((i,j)).toString().equals("B")){
+            <img src="/assets/images/bauer_schwarz.png" class="img-responsive"/>
+      }
+      else if(c.getGamefield().get((i,j)).toString().equals("T")){
+            <img src="/assets/images/turm_schwarz.png" class="img-responsive"/>
+      }
+      else if(c.getGamefield().get((i,j)).toString().equals("K")){
+              <img src="/assets/images/koenig_schwarz.png" class="img-responsive"/>
+        }
+        else if(c.getGamefield().get((i,j)).toString().equals("D")){
+                <img src="/assets/images/dame_schwarz.png" class="img-responsive"/>
+          }
+          else if(c.getGamefield().get((i,j)).toString().equals("O")){
+                  <img src="/assets/images/offizier_schwarz.png" class="img-responsive"/>
+            }
+            else if(c.getGamefield().get((i,j)).toString().equals("L")){
+                    <img src="/assets/images/laeufer_schwarz.png" class="img-responsive"/>
+              }
+    }else if(c.playerA.hasFigure(c.getGamefield().get((i,j)))){
+      if(c.getGamefield().get((i,j)).toString().equals("B")){
+            <img src="/assets/images/bauer.png" class="img-responsive"/>
+      }
+      else if(c.getGamefield().get((i,j)).toString().equals("T")){
+            <img src="/assets/images/turm.png" class="img-responsive"/>
+      }
+      else if(c.getGamefield().get((i,j)).toString().equals("K")){
+              <img src="/assets/images/koenig.png" class="img-responsive"/>
+        }
+        else if(c.getGamefield().get((i,j)).toString().equals("D")){
+                <img src="/assets/images/dame.png" class="img-responsive"/>
+          }
+          else if(c.getGamefield().get((i,j)).toString().equals("O")){
+                  <img src="/assets/images/offizier.png" class="img-responsive"/>
+            }
+            else if(c.getGamefield().get((i,j)).toString().equals("L")){
+                    <img src="/assets/images/laeufer.png" class="img-responsive"/>
+              }
+
+    }
+  }else{
+    ""
+  }
+}
+
+@main("Chess"){
+  @{var ct = 0}
+
+  <div class="container-fluid">
+    <div style="width: 200px";>
+    @{
+      val playerA = c.currentPlayer
+      val playerB = c.enemyPlayer
+        <div class="panel panel-success">
+        <div class="panel-heading">
+        {playerA}
+        </div>
+        </div>
+        <div class="panel panel-default">
+        <div class="panel-heading">
+        {playerB}
+        </div>
+        </div>
+    }
+    </div>
+    <div class="gamefield" style="position: relative; bottom: 154px;">
+    @for(i <- 0 until c.getGamefield().field.length){
+      <div class="row">
+        <div class="col-md-12">
+        @for(j <- 0 until c.getGamefield().field.length){
+
+          <div class="@{tile(i, j)} tile" id="@i@j">
+          @picture(i, j)
+          </div>
+          <script>
+                                $('#@i@j').prop("x-coordinate", @i);
+                                $('#@i@j>img').prop("x-coordinate", @i)
+                                $('#@i@j').prop("y-coordinate", @j);
+                                $('#@i@j>img').prop("y-coordinate", @j)
+                            </script>
+        }
+        </div>
+      </div>
+    }
+    </div>
+  </div>
+
+
+}

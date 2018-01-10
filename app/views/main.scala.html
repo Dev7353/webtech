@@ -24,6 +24,9 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
             <![endif]-->
+        @Html(webJarsUtil.script("jquery.min.js"))
+        @Html(webJarsUtil.script("bootstrap.min.js"))
+        <link rel="stylesheet" media="screen" href="@assets.path("stylesheets/main.css")">
     </head>
     <body>
         <header class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -80,9 +83,10 @@
                 @content
             </div>
         </main>
-        @Html(webJarsUtil.script("jquery.min.js"))
-        @Html(webJarsUtil.script("bootstrap.min.js"))
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
         <script src="@assets.path("javascripts/zxcvbnShim.js")"></script>
+        <script src="@assets.path("javascripts/chess.js")" ></script>
+        <script src="@assets.path("javascripts/session.js")" ></script>
     </body>
 </html>

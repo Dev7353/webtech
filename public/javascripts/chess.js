@@ -12,11 +12,10 @@ function updateUi(cpx, cpy, x,y){
     $('#' + x + y + ">img").prop("y-coordinate", y)
 }
 
-
 $( document ).ready(function() {
     console.log("Document is ready!")
-    registerClickListener()
     connectWebSocket()
+    registerClickListener()
 });
 
 function submitform() {
