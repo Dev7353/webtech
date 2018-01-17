@@ -1,12 +1,12 @@
 {
-  "name": "play-silhouette-seed",
-  "description": "Seed project to show how Silhouette can be implemented into a Play Framework application.",
+  "name": "webtech",
+  "description": "Web technologies chess",
   "keywords": [
     "Play",
     "Silhouette"
   ],
-  "website": "https://github.com/mohiva/play-silhouette-seed",
-  "repository": "https://github.com/mohiva/play-silhouette-seed",
+  "website": "https://github.com/Dev7353/webtech",
+  "repository": "https://github.com/Dev7353/webtech",
   "success_url": "/",
   "env": {
     "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-scala.git",
