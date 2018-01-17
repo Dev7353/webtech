@@ -71,7 +71,7 @@ libraryDependencies += "com.typesafe.play" %% "play-json" % "2.6.7"
 // Make verbose tests
 testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
 
-unmanagedJars in Compile += file("lib/chess.jar")
+// unmanagedJars in Compile += file("lib/chess.jar")
 
 //********************************************************
 // Scalariform settings
