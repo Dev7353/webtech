@@ -25,6 +25,8 @@ function connectSessionSocket() {
     }
     socket.onclose = function () {
         console.log("Bye bye SessionSocket!")
+        console.log("Try to connect Sessionsocket ...");
+        connectSessionSocket()
 
     }
 

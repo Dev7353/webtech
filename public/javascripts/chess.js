@@ -108,6 +108,8 @@ function connectWebSocket() {
     }
     webSocket.onclose = function(){
         console.log("Bye bye socket!")
+        console.log("Try to connect Websocket ...")
+        connectWebSocket()
     }
 }
 
