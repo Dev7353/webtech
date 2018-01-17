@@ -50,7 +50,7 @@ class ApplicationController @Inject() (
   var c: Chess = _
   var instance_counter = 0
   var currentPlayer: Tuple2[Int, Int] = _
-  var actors = mutable.Queue[SessionSocketActor]()
+  var actors = new mutable.Queue[SessionSocketActor]()
   var READY = "READY"
   var WAIT = "WAIT"
 
