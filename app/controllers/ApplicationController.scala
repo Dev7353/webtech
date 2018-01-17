@@ -23,6 +23,7 @@ import play.api.libs.json._
 import play.api.libs.streams.ActorFlow
 import play.libs.F.Tuple
 
+import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 import scala.swing.Reactor
 
@@ -45,10 +46,12 @@ class ApplicationController @Inject() (
   mat: Materializer
 ) extends AbstractController(components) with I18nSupport {
 
+  var playerQueue = new mutable.Queue[String]()
   var c: Chess = _
-  var PLAYERA: String = ""
   var instance_counter = 0
   var currentPlayer: Tuple2[Int, Int] = _
+  var READY = "READY"
+  var WAIT = "WAIT"
 
   /**
    * Handles the index action.
@@ -96,31 +99,26 @@ class ApplicationController @Inject() (
   }
 
   class SessionSocketActor(out: ActorRef) extends Actor {
-    def observe(): Unit = {
-      while (true) {
-        for (user <- UserDAOImpl.users.valuesIterator) {
-          // TODO: player must be not be already play
-          if (user.fullName.get != PLAYERA) {
-            c = new Chess()
-            c.controller.setPlayerA(new Player(PLAYERA))
-            c.controller.setPlayerB(new Player(user.fullName.get))
-            notifyClient()
-            return
-          }
-        }
-      }
-    }
     def receive = {
       case msg: String =>
         out ! msg
         println("[Session] Receive Playername: " + msg)
-        PLAYERA = msg
-        observe()
+        playerQueue += msg
+
+        if (playerQueue.length == 2) {
+          c = new Chess()
+          c.controller.setPlayerB(new Player(playerQueue.dequeue()))
+          c.controller.setPlayerA(new Player(playerQueue.dequeue()))
+          println("[DEBAAAAAAG] " + playerQueue.toString)
+          notifyClient(READY)
+        } else {
+          notifyClient(WAIT)
+        }
     }
 
-    def notifyClient() = {
+    def notifyClient(msg: String) = {
       println("[Session] Notify Client")
-      out ! "connected"
+      out ! msg
     }
   }
 

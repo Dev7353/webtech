@@ -13,9 +13,12 @@ function connectSessionSocket() {
         socket.send(playername)
     }
     socket.onmessage = function (e) {
-        if (typeof e.data === "string") {
+        console.log(e.data)
+        if (typeof e.data === "string" && e.data === "READY") {
             //.. start game
             window.location.replace("http://localhost:9000/game");
+        } else if(typeof e.data === "string" && e.data === "WAIT"){
+            console.log("waiting ...") //TODO: Give feedback to user
         }
     }
     socket.onerror = function (error) {

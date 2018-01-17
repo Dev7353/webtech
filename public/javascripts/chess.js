@@ -3,6 +3,13 @@ var currentFigureX;
 var currentFigureY;
 var webSocket;
 
+$( document ).ready(function() {
+    console.log("Document is ready!")
+    connectWebSocket()
+    registerClickListener()
+
+});
+
 function updateUi(cpx, cpy, x,y){
     $('.highlighted').removeClass('highlighted');
     console.log("CPX: " + cpx + "CPY: " + cpy + "X: " + x + "Y: " + y)
@@ -14,13 +21,6 @@ function updateUi(cpx, cpy, x,y){
 
     // location.reload()
 }
-
-$( document ).ready(function() {
-    console.log("Document is ready!")
-    connectWebSocket()
-    registerClickListener()
-
-});
 
 function getHighlight(x, y) {
 

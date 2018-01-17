@@ -2,9 +2,7 @@
 @import play.api.mvc.RequestHeader
 @import org.webjars.play.WebJarsUtil
 @import controllers.AssetsFinder
-
 @(c: controller.Controller, user: models.User)(implicit request: RequestHeader, messages: Messages, webJarsUtil: WebJarsUtil, assets: AssetsFinder)
-
 @tile(i: Int, j: Int) = @{
   if(i % 2 == 0){
     if(j % 2 == 0){
@@ -108,6 +106,5 @@
     }
     </div>
   </div>
-
-
 }
+<script src="@assets.path("javascripts/chess.js")" ></script>
