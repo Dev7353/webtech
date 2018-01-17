@@ -13,7 +13,6 @@ function connectSessionSocket() {
         socket.send(playername)
     }
     socket.onmessage = function (e) {
-        console.log(e.data)
         if (typeof e.data === "string" && e.data === "READY") {
             //.. start game
             window.location.replace("http://localhost:9000/game");

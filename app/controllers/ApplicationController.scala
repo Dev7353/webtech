@@ -50,6 +50,7 @@ class ApplicationController @Inject() (
   var c: Chess = _
   var instance_counter = 0
   var currentPlayer: Tuple2[Int, Int] = _
+  var actors = mutable.Queue[SessionSocketActor]()
   var READY = "READY"
   var WAIT = "WAIT"
 
@@ -84,7 +85,6 @@ class ApplicationController @Inject() (
   /**
    * Session Socket
    */
-
   def SessionSocket = WebSocket.accept[String, String] { request =>
     ActorFlow.actorRef { out =>
       println("Session connection established")
@@ -99,6 +99,7 @@ class ApplicationController @Inject() (
   }
 
   class SessionSocketActor(out: ActorRef) extends Actor {
+    actors += this
     def receive = {
       case msg: String =>
         out ! msg
@@ -109,8 +110,8 @@ class ApplicationController @Inject() (
           c = new Chess()
           c.controller.setPlayerB(new Player(playerQueue.dequeue()))
           c.controller.setPlayerA(new Player(playerQueue.dequeue()))
-          println("[DEBAAAAAAG] " + playerQueue.toString)
-          notifyClient(READY)
+          actors.dequeue().notifyClient(READY)
+          actors.dequeue().notifyClient(READY)
         } else {
           notifyClient(WAIT)
         }
