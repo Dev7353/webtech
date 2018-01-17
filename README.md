@@ -1,53 +1,39 @@
-[<img src="https://img.shields.io/travis/playframework/play-java-starter-example.svg"/>](https://travis-ci.org/playframework/play-java-starter-example)
+Silhouette Seed Template
+=====================================
 
-# play-java-starter-example
+The Silhouette Seed project is an Activator template which shows how [Silhouette](https://github.com/mohiva/play-silhouette) can be implemented in a Play Framework application. It's a starting point which can be extended to fit your needs.
 
-This is a starter application that shows how Play works.  Please see the documentation at https://www.playframework.com/documentation/latest/Home for more details.
+## Example
 
-## Running
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-Run this using [sbt](http://www.scala-sbt.org/).  If you downloaded this project from http://www.playframework.com/download then you'll find a prepackaged version of sbt in the project directory:
+(The "Build App" phase will take a few minutes)
 
-```
-sbt run
-```
+Or you can find a running example of this template under the following URL: https://play-silhouette-seed.herokuapp.com/
 
-And then go to http://localhost:9000 to see the running web application.
+## Features
 
-## Controllers
+* Sign Up
+* Sign In (Credentials)
+* Social Auth (Facebook, Google+, VK, Twitter, Xing, Yahoo)
+* Dependency Injection with Guice
+* Publishing Events
+* Avatar service
+* Remember me functionality
+* Password reset/change functionality
+* Account activation functionality
+* Email sending and auth token cleanup
+* [Security headers](https://www.playframework.com/documentation/2.4.x/SecurityHeaders)
+* [CSRF Protection](https://www.playframework.com/documentation/2.4.x/ScalaCsrf)
 
-There are several demonstration files available in this template.
+## Documentation
 
-- HomeController.java:
+Consult the [Silhouette documentation](http://silhouette.mohiva.com/docs) for more information. If you need help with the integration of Silhouette into your project, don't hesitate and ask questions in our [mailing list](https://groups.google.com/forum/#!forum/play-silhouette) or on [Stack Overflow](http://stackoverflow.com/questions/tagged/playframework).
 
-  Shows how to handle simple HTTP requests.
+## Activator
 
-- AsyncController.java:
+See https://typesafe.com/activator/template/play-silhouette-seed
 
-  Shows how to do asynchronous programming when handling a request.
+# License
 
-- CountController.java:
-
-  Shows how to inject a component into a controller and use the component when
-  handling requests.
-
-## Components
-
-- Module.java:
-
-  Shows how to use Guice to bind all the components needed by your application.
-
-- Counter.java:
-
-  An example of a component that contains state, in this case a simple counter.
-
-- ApplicationTimer.java:
-
-  An example of a component that starts when the application starts and stops
-  when the application stops.
-
-## Filters
-
-- ExampleFilter.java
-
-  A simple filter that adds a header to every response.
+The code is licensed under [Apache License v2.0](http://www.apache.org/licenses/LICENSE-2.0).
