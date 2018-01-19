@@ -7,38 +7,142 @@
 @(user: models.User, userList: ListBuffer[String])(implicit request: RequestHeader, messages: Messages, webJarsUtil: WebJarsUtil, assets: AssetsFinder)
 
 @main(messages("home.title"), Some(user)) {
-    <div class="user col-md-6 col-md-offset-3">
-        <div class="row">
-            <hr class="col-md-12" />
-            <h4 class="col-md-8">@messages("welcome.signed.in")</h4>
-            <div class="col-md-4 text-right">
-                <img src="@user.avatarURL.getOrElse(assets.path("images/silhouette.png"))" height="40px" />
-            </div>
-            <hr class="col-md-12" />
-        </div>
-        <div class="row data">
-            <div class="col-md-12">
-                <div class="row">
-                    <p class="col-md-6"><strong>@messages("first.name"):</strong></p><p class="col-md-6">@user.firstName.getOrElse("None")</p>
+    <div class="container">
+        <div id="content" class="wrapper doc">
+            <h1 class="ml1">
+                <span class="text-wrapper">
+                    <span class="line line1"></span>
+                    <span class="letters" id="title">Willkommen zu Schach</span>
+                    <span class="line line2"></span>
+                </span>
+            </h1>
+
+            <section class="ruleset" id="grundlegend"><h2>Grundlegende Regeln</h2>
+                <div>
+                    <div class="col-md-12">
+                        <p>
+                            Der König ist die wichtigste Figur beim Schach.
+                            Ein Königsangriff, auch Schach genannt, muss unverzüglich abgewehrt werden.
+                            Das Spiel Schach wird auf einem Brett mit 64 Feldern gespielt.
+                            Ein Spieler bewegt die weißen Steine, der andere die schwarzen.
+                            Es muss immer abwechselnd gezogen werden.
+                            Weiß beginnt, nachdem die Ausgangsstellung wie im nebenstehenden Bild aufgebaut wurde.
+                            Nur gegnerische Steine können geschlagen werden. Ein geschlagener Stein ist aus dem Spiel.
+                        </p>
+                    </div>
                 </div>
-                <div class="row">
-                    <p class="col-md-6"><strong>@messages("last.name"):</strong></p><p class="col-md-6">@user.lastName.getOrElse("None")</p>
+            </section>
+            <section id="gangart">
+                <h2 class="ruleset">Gangarten</h2>
+                <div class="ruleset" id="könig">
+                    <p>
+                        Der König ist die wichtige Figur, denn nur dieser kann matt gesetzt werden.
+                        Wie die Dame, kann auch der König in jede Richtung ziehen.
+                        Ein König jedoch nur ein Feld. (Außer bei der Rochade).
+                        Zudem darf er nicht auf Felder ziehen, die vom Gegner angegriffen werden.
+                    </p>
+                    <div class="col-md-12 moves">
+                        <img style="float: initial; margin: auto;" src="/assets/images/könig.webp">
+                    </div>
                 </div>
-                <div class="row">
-                    <p class="col-md-6"><strong>@messages("full.name"):</strong></p><p class="col-md-6" id="fullname">@user.fullName.getOrElse("None")</p>
+                <div class="ruleset" id="dame">
+                    <p>
+                        Die Dame ist die stärkste Figur auf dem Brett und zieht wie in Bild angegeben.
+                        (horizontal, vertikal oder diagonal)
+                    </p>
+                    <div class="col-md-12 moves">
+                    <img style="float: initial; margin: auto;" src="/assets/images/dame.webp">
+                    </div>
                 </div>
-                <div class="row">
-                    <p class="col-md-6"><strong>@messages("email"):</strong></p><p class="col-md-6">@user.email.getOrElse("None")</p>
+                <div class="ruleset" id="springer">
+                    <p>
+                        Der Springer kann wie im Bild angegeben ziehen.
+                        Im Gegensatz zu allen anderen Figuren kann er andere Steine überspringen.
+                        Er zieht immer zwei Felder horizontal und ein Feld vertikal oder zwei Felder vertikal
+                        und ein Feld horizontal.
+                    </p>
+                    <div class="col-md-12 moves">
+                        <img style="float: initial; margin: auto;" src="/assets/images/springer.webp">
+                    </div>
+                </div>
+                <div class="ruleset" id="läufer">
+                    <p>
+                        Der Läufer kann wie im Bild angeben ziehen. (nur diagonal)
+                    </p>
+                    <div class="col-md-12 moves">
+                        <img style="float: initial; margin: auto;" src="/assets/images/laeufer.webp">
+                    </div>
+                </div>
+                <div class="ruleset" id="turm">
+                    <p>
+                        Der Turm zieht wie in Bild rechts angegeben, also entweder horizontal oder vertikal.
+                        Nur bei der Rochade kann der Turm den König überspringen.
+                    </p>
+                    <div class="col-md-12 moves">
+                        <img style="float: initial; margin: auto;" src="/assets/images/turm.webp">
+                    </div>
+                </div>
+                <div class="ruleset" id="bauer">
+                    <p>
+                        Der Bauer kann im Normalfall nur ein Feld nach vorn ziehen,
+                        aber die dort stehen Steine nicht schlagen. Er greift nur gegnerische Steine an,
+                        die vorne links, oder vorne rechts stehen. (Bild - mittlerer Bauer)
+                        Nur wenn ein Bauer noch nie bewegt wurde, kann er auch zwei Felder vorziehen.
+                        (Bild rechts - linker Bauer) Wenn dadurch jedoch der Bauer das Angriffsfeld eines gegnerischen
+                        Bauern überspringt, so kann dieser gegnerische Bauer ihn unmittelbar danach (und nur dann) schlagen.
+                        Dieser Sonderfall heißt schlagen en passant (Bild rechts - blauer Zug und danach roter Zug)
+                        Ein Bauer muss in einen Springer, Läufer, Turm oder eine Dame umgewandelt werden,
+                        wenn dieser die gegnerische Grundreihe erreicht.
+                    </p>
+                    <div class="col-md-12 moves">
+                        <img style="float: initial; margin: auto;" src="/assets/images/bauer.webp">
+                        <img style="float: initial; margin: auto;" src="/assets/images/befoerderung.webp">
+                    </div>
+                </div>
+            </section>
+            <section class="ruleset" id="rochade">
+                <h2>Rochade</h2>
+                <p>
+                    Bei einer Rochade tauschen König und Turm die Plätze. Der Spieler muss immer den König zuerst bewegen.
+                    Bei der kurzen- oder auch kleinen Rochade von Weiß, zieht der König von e1 nach g1
+                    und der Turm von h1 nach f1. Für Schwarz entsprechend König e8-g8 + Turm h8-f8.
+                    Bei der langen- oder auch großen Rochade von Weiß, zieht der König von e1 nach c1
+                    und der Turm von a1 nach d1. Für Schwarz entsprechend König e8-c8 + Turm a8-d8.
+                    Die Rochade kann nur dann ausgeführt werden, wenn:
+                </p>
+                <div class="col-md-12"><ul>
+                    <li>der König noch nicht bewegt wurde</li>
+                    <li>der beteiligte Turm noch nicht gezogen wurde</li>
+                    <li>zwischen dem König und dem beteiligten Turm keine andere Figure steht</li>
+                    <li>der König über kein Feld ziehen muss, das durch eine feindliche Figur bedroht wird</li>
+                    <li>der König vor und nach Ausführung der Rochade nicht im Schach steht</li>
+                    <li>Turm und König müssen auf derselben Reihe stehen</li>
+                </ul>
+                </div>
+                <div class="col-md-12 moves"><img style="float: initial; margin: auto;" src="/assets/images/rochade.webp"></div>
+
+            </section>
+            <section class="ruleset" id="wertung" style="margin-top: 100px; margin-bottom: 20px;">
+                <div>
+                    <p>Die Partie zählt als gewonnen, wenn</p>
+                    <ul>
+                        <li>der Gegner aufgibt</li>
+                        <li>der gegenrische König mattgesetzt wurde</li>
+                    </ul>
+                </div>
+            </section>
+            <div id="play" class="col-md-12" style="text-align: center;">
+                <h2>Bereit?</h2>
+                <button class="btn" id="start" style="width: 40%; height: 50px;">Spiel suchen</button>
+                <div id="queueText" style="opacity: 0; visibility: hidden;">
+                    <p style="margin-top: 20px; margin-bottom: 20px;" id="queueText">Es wird nach einem anderen Spieler gesucht. Bitte warten Sie einen Moment.</p>
+                    <div style="margin: auto;" class="loader"></div>
                 </div>
             </div>
 
-            <button id="start">Start Game</button>
-            <ol>
-                @for(u <- userList){
-                    <li>@u</li>
-                }
-            </ol>
         </div>
+    </div>
 
+    </div>
     </div>
 }
