@@ -7,7 +7,7 @@ $(document).ready(function(){
 })
 
 function connectSessionSocket() {
-    socket = new WebSocket("ws://localhost:9000/SessionSocket");
+    socket = new WebSocket("wss://de-chess-htwg.herokuapp.com/SessionSocket");
     socket.onopen = function () {
         console.log("Open to connect SessionSocket ...");
         socket.send(playername)
