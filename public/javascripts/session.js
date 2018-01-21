@@ -6,6 +6,7 @@ $(document).ready(function(){
     $('#start').click(function(){
         $('#queueText').css("visibility", "visible");
         $('#queueText').fadeTo(300, 1)
+        $('#start').prop("disabled", true);
         connectSessionSocket();
     })
 })

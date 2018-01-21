@@ -104,7 +104,8 @@ class ApplicationController @Inject() (
       case msg: String =>
         out ! msg
         println("[Session] Receive Playername: " + msg)
-        playerQueue += msg
+        if (!playerQueue.contains(msg))
+          playerQueue += msg
 
         if (playerQueue.length == 2) {
           c = new Chess()

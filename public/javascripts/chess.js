@@ -13,9 +13,7 @@ $( document ).ready(function() {
 });
 
 function updateUi(cpx, cpy, x,y){
-    console.log("Update: " + cpx + cpy + x + y);
     $('.highlighted').removeClass('highlighted');
-    console.log("CPX: " + cpx + "CPY: " + cpy + "X: " + x + "Y: " + y)
     $('#' + x + y + ">img").remove()
     $('#' + cpx + cpy + ">img").appendTo($('#' + x + y))
     //$('#' + x + y + ">img").attr("id", x.toString() + y.toString())
@@ -52,6 +50,7 @@ function moveFigure(cpx, cpy, x, y) {
             console.log("Moved the figure from " + cpx + cpy + " to " + x + y)
         }
     })
+    // Change the display of currently active player
     if($('#playerA').hasClass("panel-success")) {
         $('#playerA').removeClass("panel-success");
         $('#playerB').addClass("panel-success");
