@@ -2,24 +2,32 @@ let count = 0;
 var currentFigureX;
 var currentFigureY;
 var webSocket;
+window.sr = ScrollReveal();
+
 
 $( document ).ready(function() {
     console.log("Document is ready!")
     connectWebSocket()
     registerClickListener()
-
+    sr.reveal('.tile', { duration: 500 }, 20);
 });
 
-function updateUi(cpx, cpy, x,y){
+function updateUi(cpx, cpy, x, y, currentPlayer){
     $('.highlighted').removeClass('highlighted');
-    console.log("CPX: " + cpx + "CPY: " + cpy + "X: " + x + "Y: " + y)
     $('#' + x + y + ">img").remove()
     $('#' + cpx + cpy + ">img").appendTo($('#' + x + y))
     //$('#' + x + y + ">img").attr("id", x.toString() + y.toString())
     $('#' + x + y + ">img").prop("x-coordinate", x)
     $('#' + x + y + ">img").prop("y-coordinate", y)
-
-    // location.reload()
+    // Change the display of currently active player
+    console.log("Update Player: " + $('#playerB').text().replace(/\s/g,'') + " Input: " + currentPlayer)
+    if($('#playerB').text().replace(/\s/g,'') === currentPlayer.replace(/\s/g,'')) {
+        $('#playerA').removeClass("panel-success");
+        $('#playerB').addClass("panel-success");
+    } else {
+        $('#playerB').removeClass("panel-success");
+        $('#playerA').addClass("panel-success");
+    }
 }
 
 function getHighlight(x, y) {
@@ -89,18 +97,19 @@ function registerClickListener() {
 }
 
 function connectWebSocket() {
-    webSocket = new WebSocket("wss://de-chess-htwg.herokuapp.com/socket");
+    webSocket = new WebSocket("ws://localhost:9000/socket");
     webSocket.onopen = function(){
         console.log("Connected to Websocket!");
     }
     webSocket.onmessage = function(e){
         if (typeof e.data === "string") {
-            console.log(e.data)
+            console.log("Data: " + e.data)
             let cpx = parseInt(e.data.charAt(1))
             let cpy = parseInt(e.data.charAt(3))
             let x = parseInt(e.data.charAt(6))
             let y = parseInt(e.data.charAt(8))
-            updateUi(cpx, cpy, x, y)
+            let currentPlayer = e.data.substring(10, e.data.length);
+            updateUi(cpx, cpy, x, y, currentPlayer)
         }
     }
     webSocket.onerror = function(error){

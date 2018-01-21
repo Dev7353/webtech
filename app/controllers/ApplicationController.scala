@@ -104,6 +104,7 @@ class ApplicationController @Inject() (
       case msg: String =>
         out ! msg
         println("[Session] Receive Playername: " + msg)
+
         playerQueue += msg
 
         if (playerQueue.length == 2) {
@@ -150,7 +151,7 @@ class ApplicationController @Inject() (
 
     def notifyClient() = {
       println("[Application] Notify Client")
-      out ! "" + currentPlayer + c.controller.target
+      out ! "" + currentPlayer + c.controller.target + c.controller.currentPlayer
     }
     def update() = notifyClient
   }
