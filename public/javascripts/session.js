@@ -12,7 +12,7 @@ $(document).ready(function(){
 })
 
 function connectSessionSocket() {
-    socket = new WebSocket("ws://localhost:9000/SessionSocket");
+    socket = new WebSocket("wss://de-chess-htwg.herokuapp.com/SessionSocket");
     socket.onopen = function () {
         console.log("Open to connect SessionSocket ...");
         socket.send(playername)
@@ -20,7 +20,7 @@ function connectSessionSocket() {
     socket.onmessage = function (e) {
         if (typeof e.data === "string" && e.data === "READY") {
             //.. start game
-            window.location.replace("http://localhost:9000/game");
+            window.location.replace("http://de-chess-htwg.herokuapp.com/game");
         } else if(typeof e.data === "string" && e.data === "WAIT"){
             console.log("waiting ...") //TODO: Give feedback to user
         }

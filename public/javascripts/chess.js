@@ -97,7 +97,7 @@ function registerClickListener() {
 }
 
 function connectWebSocket() {
-    webSocket = new WebSocket("ws://localhost:9000/socket");
+    webSocket = new WebSocket("wss://de-chess-htwg.herokuapp.com/socket");
     webSocket.onopen = function(){
         console.log("Connected to Websocket!");
     }
