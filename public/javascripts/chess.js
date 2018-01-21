@@ -12,13 +12,22 @@ $( document ).ready(function() {
     sr.reveal('.tile', { duration: 500 }, 20);
 });
 
-function updateUi(cpx, cpy, x,y){
+function updateUi(cpx, cpy, x, y, currentPlayer){
     $('.highlighted').removeClass('highlighted');
     $('#' + x + y + ">img").remove()
     $('#' + cpx + cpy + ">img").appendTo($('#' + x + y))
     //$('#' + x + y + ">img").attr("id", x.toString() + y.toString())
     $('#' + x + y + ">img").prop("x-coordinate", x)
     $('#' + x + y + ">img").prop("y-coordinate", y)
+    // Change the display of currently active player
+    console.log("Update Player: " + $('#playerB').text().replace(/\s/g,'') + " Input: " + currentPlayer)
+    if($('#playerB').text().replace(/\s/g,'') === currentPlayer.replace(/\s/g,'')) {
+        $('#playerA').removeClass("panel-success");
+        $('#playerB').addClass("panel-success");
+    } else {
+        $('#playerB').removeClass("panel-success");
+        $('#playerA').addClass("panel-success");
+    }
 }
 
 function getHighlight(x, y) {
@@ -50,14 +59,6 @@ function moveFigure(cpx, cpy, x, y) {
             console.log("Moved the figure from " + cpx + cpy + " to " + x + y)
         }
     })
-    // Change the display of currently active player
-    if($('#playerA').hasClass("panel-success")) {
-        $('#playerA').removeClass("panel-success");
-        $('#playerB').addClass("panel-success");
-    } else {
-        $('#playerB').removeClass("panel-success");
-        $('#playerA').addClass("panel-success");
-    }
     webSocket.send("heheh >:D")
 }
 
@@ -102,11 +103,13 @@ function connectWebSocket() {
     }
     webSocket.onmessage = function(e){
         if (typeof e.data === "string") {
+            console.log("Data: " + e.data)
             let cpx = parseInt(e.data.charAt(1))
             let cpy = parseInt(e.data.charAt(3))
             let x = parseInt(e.data.charAt(6))
             let y = parseInt(e.data.charAt(8))
-            updateUi(cpx, cpy, x, y)
+            let currentPlayer = e.data.substring(10, e.data.length);
+            updateUi(cpx, cpy, x, y, currentPlayer)
         }
     }
     webSocket.onerror = function(error){
