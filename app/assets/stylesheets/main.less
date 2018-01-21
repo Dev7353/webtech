@@ -12,7 +12,13 @@ body {
   width: max-content;
   height: 50%;
   margin: auto;
-  margin-top: 2%;
+}
+
+.img-responsive {
+  transition: all .2s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 .moves {
   margin-top: 30px!important;
@@ -63,6 +69,10 @@ img{
 .highlighted {
   background-color: yellow;
   border: 1px solid black;
+  transition: background-color .2s ease;
+  &:hover {
+    background-color: gold;
+  }
 }
 @media (max-width: 480px) {
   .navbar-toggler {

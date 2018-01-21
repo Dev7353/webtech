@@ -2,7 +2,7 @@ var playername
 $(document).ready(function(){
     window.sr = ScrollReveal();
     sr.reveal(".ruleset");
-    playername = $('#fullname').text()
+    playername = $('#playername').text()
     $('#start').click(function(){
         $('#queueText').css("visibility", "visible");
         $('#queueText').fadeTo(300, 1)
