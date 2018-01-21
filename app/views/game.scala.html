@@ -69,23 +69,7 @@
   @{var ct = 0}
 
   <div class="container-fluid">
-      <div class="col-md-2">
-      @{
-          val playerA = c.playerA
-          val playerB = c.playerB
-              <div id="playerA" class="panel panel-success">
-              <div class="panel-heading">
-              {playerA}
-              </div>
-              </div>
-              <div id="playerB" class="panel">
-              <div class="panel-heading">
-              {playerB}
-              </div>
-              </div>
-      }
-      </div>
-    <div class="col-md-10 gamefield">
+    <div class="col-md-9 gamefield">
     @for(i <- 0 until c.getGamefield().field.length){
       <div class="row">
         <div class="col-md-12">
@@ -105,6 +89,22 @@
       </div>
     }
     </div>
+      <div class="col-md-3">
+      @{
+          val playerA = c.playerA
+          val playerB = c.playerB
+              <div id="playerA" class="panel panel-success">
+              <div class="panel-heading">
+              {playerA}
+              </div>
+              </div>
+              <div id="playerB" class="panel">
+              <div class="panel-heading">
+              {playerB}
+              </div>
+              </div>
+      }
+      </div>
   </div>
 }
 <script src="@assets.path("javascripts/chess.js")" ></script>
