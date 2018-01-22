@@ -1,24 +1,29 @@
-Silhouette Seed Template
+Web Technologies Chess
 =====================================
 
-The Silhouette Seed project is an Activator template which shows how [Silhouette](https://github.com/mohiva/play-silhouette) can be implemented in a Play Framework application. It's a starting point which can be extended to fit your needs.
+This is a project for the lecture Web Technologies at the HTWG Konstanz. It implements the web interface for 
+[the software engineering project chess](https://github.com/Dev7353/chess) and is built with Scala, 
+[Play](https://github.com/playframework/playframework) and [Silhouette](https://github.com/mohiva/play-silhouette). 
+It also has an alternative functional [Vue](https://github.com/vuejs/vue) view and a 
+mock-up view in [Polymer](https://github.com/Polymer/polymer).
 
-## Example
+## Demo
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+Visit [the Heroku app](http://de-chess-htwg.herokuapp.com/) for the demo.
 
-(The "Build App" phase will take a few minutes)
+## Installation
 
-Or you can find a running example of this template under the following URL: https://play-silhouette-seed.herokuapp.com/
+1. Simply clone this repository and run this project with IntelliJ or `sbt run`.
+2. Open `localhost:9000` in the browser.
+3. Register with your credentials or log in via Google.
+4. Play the game.
 
 ## Features
 
 * Sign Up
 * Sign In (Credentials)
-* Social Auth (Facebook, Google+, VK, Twitter, Xing, Yahoo)
+* Social Auth (Google+)
 * Dependency Injection with Guice
-* Publishing Events
-* Avatar service
 * Remember me functionality
 * Password reset/change functionality
 * Account activation functionality
@@ -26,14 +31,3 @@ Or you can find a running example of this template under the following URL: http
 * [Security headers](https://www.playframework.com/documentation/2.4.x/SecurityHeaders)
 * [CSRF Protection](https://www.playframework.com/documentation/2.4.x/ScalaCsrf)
 
-## Documentation
-
-Consult the [Silhouette documentation](http://silhouette.mohiva.com/docs) for more information. If you need help with the integration of Silhouette into your project, don't hesitate and ask questions in our [mailing list](https://groups.google.com/forum/#!forum/play-silhouette) or on [Stack Overflow](http://stackoverflow.com/questions/tagged/playframework).
-
-## Activator
-
-See https://typesafe.com/activator/template/play-silhouette-seed
-
-# License
-
-The code is licensed under [Apache License v2.0](http://www.apache.org/licenses/LICENSE-2.0).
