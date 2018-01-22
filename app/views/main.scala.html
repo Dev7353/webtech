@@ -13,8 +13,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" type="image/png" href="@assets.path("images/favicon.png")">
-        <title>@title</title>
-        <link href="//fonts.googleapis.com/css?family=Roboto|Montserrat:400,700|Open+Sans:400,300,600" rel="stylesheet">
+        <title>Web Technologies Chess</title>
         <link href="//cdnjs.cloudflare.com/ajax/libs/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet">
         @Html(webJarsUtil.css("bootstrap.min.css"))
         @Html(webJarsUtil.css("bootstrap-theme.min.css"))
@@ -26,6 +25,8 @@
             <![endif]-->
         @Html(webJarsUtil.script("jquery.min.js"))
         @Html(webJarsUtil.script("bootstrap.min.js"))
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+        <link href="@assets.path("stylesheets/aos.css")" rel="stylesheet">
         <link rel="stylesheet" media="screen" href="@assets.path("stylesheets/main.css")">
     </head>
     <body>
@@ -38,19 +39,19 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="@controllers.routes.ApplicationController.index">Silhouette Seed Template</a>
+                    <a class="navbar-brand" href="@controllers.routes.ApplicationController.index">Web Technologies Chess</a>
                 </div>
                 <nav class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="@controllers.routes.ApplicationController.index">@messages("home")</a></li>
-                        <li><a href="https://github.com/mohiva/play-silhouette-seed">GitHub</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         @user.map { u =>
-                            <li><a href="@controllers.routes.ApplicationController.index">@u.name</a></li>
+                            <li><a id="playername" href="@controllers.routes.ApplicationController.index">@u.name</a></li>
                             @if(u.loginInfo.providerID == com.mohiva.play.silhouette.impl.providers.CredentialsProvider.ID) {
                                 <li><a href="@controllers.routes.ChangePasswordController.view">@messages("change.password")</a></li>
                             }
+                            <li><a href="#start">Play</a></li>
                             <li><a href="@controllers.routes.ApplicationController.signOut">@messages("sign.out")</a></li>
                         }.getOrElse {
                             <li><a href="@controllers.routes.SignInController.view">@messages("sign.in")</a></li>
@@ -86,6 +87,8 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
         <script src="@assets.path("javascripts/zxcvbnShim.js")"></script>
+        <script src="@assets.path("javascripts/anime.min.js")"></script>
         <script src="@assets.path("javascripts/session.js")" ></script>
+        <script src="@assets.path("javascripts/scrollreveal.min.js")"></script>
     </body>
 </html>
